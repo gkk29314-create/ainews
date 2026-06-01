@@ -18,6 +18,19 @@ CONFIG = {
 
 HISTORY_FILE = "history.json"
 
+# 標籤父子關係映射 (根據 tags.sql)
+TAG_RELATIONS = {
+    "9": "3",  # 產業應用 -> 數位 3C 硬體
+    "17": "3", # 數位相機 -> 數位 3C 硬體
+    "18": "3", # 電腦硬體 -> 數位 3C 硬體
+    "45": "44", # 商業與製造 -> 應用案例
+    "46": "44", # 醫療與健康 -> 應用案例
+    "47": "44", # 教育與學習 -> 應用案例
+    "22": "4",  # 框架與平台 -> 工具與資源
+    "24": "4",  # 學習資源 -> 工具與資源
+    "25": "4"   # 工具分享 -> 工具與資源
+}
+
 def load_json(path):
     if not os.path.exists(path):
         if "mapping" in path: return {"mappings": []}
@@ -35,20 +48,23 @@ def post_to_flarum(user_id, tag_id, title, content):
     if not CONFIG["SERVER_API_URL"]: return False
     url = f"{CONFIG['SERVER_API_URL']}/api/discussions"
     
-    # 最終修正：Flarum 身份代理標準標頭 (不要有空格)
-    # 注意：資料庫中的 api_keys.user_id 必須為 NULL 才能冒充他人
+    # 建立標籤列表，包含父標籤 (如果有的話)
+    tags_data = [{"type": "tags", "id": str(tag_id)}]
+    if str(tag_id) in TAG_RELATIONS:
+        tags_data.append({"type": "tags", "id": TAG_RELATIONS[str(tag_id)]})
+    
     headers = {
         "Authorization": f"Token {CONFIG['FLARUM_API_KEY']};userId={user_id}",
         "Content-Type": "application/json"
     }
     
-    print(f"✉️  正在執行身份冒充 -> 目標 UserID: {user_id}")
+    print(f"✉️  正在執行身份冒充 -> 目標 UserID: {user_id}, Tags: {[t['id'] for t in tags_data]}")
     
     payload = {
         "data": {
             "type": "discussions",
             "attributes": {"title": title, "content": content},
-            "relationships": {"tags": {"data": [{"type": "tags", "id": str(tag_id)}]}}
+            "relationships": {"tags": {"data": tags_data}}
         }
     }
     try:

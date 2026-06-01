@@ -86,7 +86,6 @@ class AIHandler:
         return None
 
     def _call_gemini(self, prompt, api_key):
-        # 使用 REST API 直連，避開 SDK 穩定性問題
         url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key={api_key}"
         headers = {"Content-Type": "application/json"}
         payload = {
@@ -96,7 +95,11 @@ class AIHandler:
         try:
             response = requests.post(url, headers=headers, json=payload, timeout=30)
             data = response.json()
-            return data["candidates"][0]["content"]["parts"][0]["text"]
+            if "candidates" in data and data["candidates"]:
+                return data["candidates"][0]["content"]["parts"][0]["text"]
+            else:
+                print(f"Gemini 無法生成內容（可能觸發過濾）: {data}")
+                return None
         except Exception as e:
             print(f"Gemini Error: {e}")
             return None
