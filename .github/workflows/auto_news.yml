@@ -32,6 +32,6 @@ jobs:
           ZHIPU_KEY: ${{ secrets.ZHIPU_KEY }}
           NVIDIA_KEY: ${{ secrets.NVIDIA_KEY }}
           SYNC_TOKEN: ${{ secrets.SYNC_TOKEN }}
-          SERV00_API_URL: ${{ secrets.SERV00_API_URL }} # 例如 https://yourdomain.com/api/receiver.php
+          SERVER_API_URL: ${{ secrets.SERVER_API_URL }} # 例如 https://yourdomain.com/api/receiver.php
           # ---------------------------------------------------------------------------------------
         run: python ai_processor.py
