@@ -36,9 +36,9 @@ def post_to_flarum(user_id, tag_id, title, content):
     url = f"{CONFIG['SERVER_API_URL']}/api/discussions"
     
     # 修正 Flarum API 的身份代理標頭格式
-    # 標準格式：Token <key>; userId=<id>
+    # 標準格式建議：Token <key>;userId=<id> (不留空格有時更穩定)
     headers = {
-        "Authorization": f"Token {CONFIG['FLARUM_API_KEY']}; userId={user_id}",
+        "Authorization": f"Token {CONFIG['FLARUM_API_KEY']};userId={user_id}",
         "Content-Type": "application/json"
     }
     
