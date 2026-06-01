@@ -25,9 +25,14 @@
     "category": "photo-gear"
   },
   {
-    "name": "CNET - News",
-    "url": "https://www.cnet.com/rss/news/",
+    "name": "OpenAI News",
+    "url": "https://openai.com/news/rss.xml",
     "category": "industry"
+  },
+  {
+    "name": "Hugging Face Blog",
+    "url": "https://huggingface.co/blog/feed.xml",
+    "category": "frameworks-platforms"
   },
   {
     "name": "MIT Technology Review",
@@ -38,6 +43,11 @@
     "name": "Ars Technica",
     "url": "https://feeds.arstechnica.com/arstechnica/index",
     "category": "frameworks-platforms"
+  },
+  {
+    "name": "Hacker News (Top 100)",
+    "url": "https://hnrss.org/frontpage?points=100",
+    "category": "industry"
   },
   {
     "name": "HealthIT News",
@@ -83,5 +93,10 @@
     "name": "Lifehacker",
     "url": "https://lifehacker.com/rss",
     "category": "tools"
+  },
+  {
+    "name": "BleepingComputer",
+    "url": "https://www.bleepingcomputer.com/feed/",
+    "category": "frameworks-platforms"
   }
 ]
