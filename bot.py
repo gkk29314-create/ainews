@@ -35,14 +35,14 @@ def post_to_flarum(user_id, tag_id, title, content):
     if not CONFIG["SERVER_API_URL"]: return False
     url = f"{CONFIG['SERVER_API_URL']}/api/discussions"
     
-    # 修正 Flarum API 的身份代理標頭格式
-    # 標準格式建議：Token <key>;userId=<id> (不留空格有時更穩定)
+    # 最終修正：Flarum 身份代理標準標頭 (不要有空格)
+    # 注意：資料庫中的 api_keys.user_id 必須為 NULL 才能冒充他人
     headers = {
         "Authorization": f"Token {CONFIG['FLARUM_API_KEY']};userId={user_id}",
         "Content-Type": "application/json"
     }
     
-    print(f"✉️  正在以 UserID: {user_id} 發布到 TagID: {tag_id}...")
+    print(f"✉️  正在執行身份冒充 -> 目標 UserID: {user_id}")
     
     payload = {
         "data": {
@@ -53,8 +53,14 @@ def post_to_flarum(user_id, tag_id, title, content):
     }
     try:
         response = requests.post(url, json=payload, headers=headers)
-        return response.status_code == 201
-    except: return False
+        if response.status_code == 201:
+            return True
+        else:
+            print(f"❌ API 回應: {response.status_code} - {response.text}")
+            return False
+    except Exception as e:
+        print(f"❌ 請求失敗: {e}")
+        return False
 
 def run_bot():
     mappings = load_json("mapping.json").get("mappings", [])
@@ -62,7 +68,6 @@ def run_bot():
     history = load_json(HISTORY_FILE)
     if not isinstance(history, list): history = []
     
-    # 初始化 AI 處理器 (傳入所有金鑰)
     ai = AIHandler(CONFIG["AI_KEYS"])
     mapping_dict = {m["channel"]: m for m in mappings}
     new_history = list(history)
@@ -78,13 +83,11 @@ def run_bot():
                 mapping = mapping_dict[category]
                 print(f"🤖 處理新聞: {entry.title}")
                 
-                # 自動遞補改寫邏輯
                 ai_result = ai.rewrite_content(entry.title, entry.description)
                 
                 if ai_result:
-                    # 使用 AI 優化後的標題和內容
                     if post_to_flarum(mapping["user_id"], mapping["tag_id"], ai_result["title"], ai_result["content"]):
-                        print(f"✅ 發帖成功: {ai_result['title']}")
+                        print(f"✅ 發帖成功")
                         new_history.append(entry.link)
                         time.sleep(3)
         
