@@ -88,28 +88,76 @@ def run_bot():
     mapping_dict = {m["channel"]: m for m in mappings}
     new_history = list(history)
     
-    for source in rss_sources:
-        print(f"🔍 抓取源: {source['name']}")
-        feed = feedparser.parse(source['url'])
-        for entry in feed.entries[:3]:
-            if entry.link in history: continue
-            
-            category = source["category"]
-            if category in mapping_dict:
-                mapping = mapping_dict[category]
-                print(f"🤖 處理新聞: {entry.title}")
-                
-                ai_result = ai.rewrite_content(entry.title, entry.description)
-                
-                if ai_result:
-                    if post_to_flarum(mapping["user_id"], mapping["tag_id"], ai_result["title"], ai_result["content"]):
-                        print(f"✅ 發帖成功")
-                        new_history.append(entry.link)
-                        time.sleep(3)
-        
-        save_json(HISTORY_FILE, new_history[-200:])
-        print("-" * 20)
+for source in rss_sources:
+    print(f"🔍 抓取源: {source['name']}")
 
+    try:
+        feed = feedparser.parse(source['url'])
+
+        for entry in feed.entries[:3]:
+
+            try:
+                if getattr(entry, "link", "") in history:
+                    continue
+
+                category = source["category"]
+
+                if category not in mapping_dict:
+                    continue
+
+                mapping = mapping_dict[category]
+
+                title = getattr(entry, "title", "無標題")
+
+                print(f"🤖 處理新聞: {title}")
+
+                content = ""
+
+                if hasattr(entry, "description"):
+                    content = entry.description
+
+                elif hasattr(entry, "summary"):
+                    content = entry.summary
+
+                elif hasattr(entry, "content") and entry.content:
+                    content = entry.content[0].get("value", "")
+
+                if not content:
+                    print("⚠️ 找不到文章內容，跳過")
+                    continue
+
+                content = str(content)[:8000]
+
+                ai_result = ai.rewrite_content(
+                    title,
+                    content
+                )
+
+                if not ai_result:
+                    print("⚠️ AI 改寫失敗")
+                    continue
+
+                success = post_to_flarum(
+                    mapping["user_id"],
+                    mapping["tag_id"],
+                    ai_result["title"],
+                    ai_result["content"]
+                )
+
+                if success:
+                    print("✅ 發帖成功")
+                    new_history.append(getattr(entry, "link", ""))
+                    time.sleep(3)
+
+            except Exception as e:
+                print(f"❌ 處理文章失敗: {e}")
+                continue
+
+    except Exception as e:
+        print(f"❌ RSS 解析失敗: {e}")
+
+    save_json(HISTORY_FILE, new_history[-200:])
+    print("-" * 20)
 if __name__ == "__main__":
     if CONFIG["FLARUM_API_KEY"] and CONFIG["SERVER_API_URL"]:
         run_bot()
