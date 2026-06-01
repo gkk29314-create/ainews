@@ -5,23 +5,83 @@
     "category": "industry"
   },
   {
+    "name": "The Verge - Tech",
+    "url": "https://www.theverge.com/tech/rss/index.xml",
+    "category": "pc-hardware"
+  },
+  {
     "name": "Engadget",
     "url": "https://www.engadget.com/rss.xml",
     "category": "pc-hardware"
   },
   {
-    "name": "The Verge",
-    "url": "https://www.theverge.com/rss/index.xml",
-    "category": "frameworks-platforms"
-  },
-  {
-    "name": "DPReview",
+    "name": "DPReview - Latest",
     "url": "https://www.dpreview.com/feeds/rss",
     "category": "photo-gear"
   },
   {
-    "name": "HealthIT",
-    "url": "https://www.healthit.gov/news/feed",
+    "name": "PetaPixel",
+    "url": "https://petapixel.com/feed/",
+    "category": "photo-gear"
+  },
+  {
+    "name": "CNET - News",
+    "url": "https://www.cnet.com/rss/news/",
+    "category": "industry"
+  },
+  {
+    "name": "MIT Technology Review",
+    "url": "https://www.technologyreview.com/feed/",
+    "category": "frameworks-platforms"
+  },
+  {
+    "name": "Ars Technica",
+    "url": "https://feeds.arstechnica.com/arstechnica/index",
+    "category": "frameworks-platforms"
+  },
+  {
+    "name": "HealthIT News",
+    "url": "https://www.healthitnews.com/rss",
     "category": "medical"
+  },
+  {
+    "name": "Medical News Today",
+    "url": "https://rss.medicalnewstoday.com/featured.xml",
+    "category": "medical"
+  },
+  {
+    "name": "Harvard Business Review",
+    "url": "https://feeds.hbr.org/hbr/external-tools",
+    "category": "biz-prod"
+  },
+  {
+    "name": "Entrepreneur - Latest",
+    "url": "https://www.entrepreneur.com/latest.rss",
+    "category": "biz-prod"
+  },
+  {
+    "name": "EdSurge",
+    "url": "https://www.edsurge.com/articles.rss",
+    "category": "education"
+  },
+  {
+    "name": "TechLearning",
+    "url": "https://www.techlearning.com/rss",
+    "category": "education"
+  },
+  {
+    "name": "GitHub Blog",
+    "url": "https://github.blog/feed/",
+    "category": "learning-resources"
+  },
+  {
+    "name": "Product Hunt",
+    "url": "https://www.producthunt.com/feed",
+    "category": "tools"
+  },
+  {
+    "name": "Lifehacker",
+    "url": "https://lifehacker.com/rss",
+    "category": "tools"
   }
 ]
