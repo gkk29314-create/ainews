@@ -11,6 +11,8 @@ on:
 jobs:
   publish:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write # 賦予寫入權限，以便推送 history.json
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
