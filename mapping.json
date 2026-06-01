@@ -1,0 +1,68 @@
+{
+  "forum_url": "https://manprompt.qzz.io/",
+  "mappings": [
+    {
+      "channel": "industry",
+      "display_name": "產業應用",
+      "username": "ai001",
+      "user_id": 10,
+      "tag_id": 9
+    },
+    {
+      "channel": "photo-gear",
+      "display_name": "數位相機",
+      "username": "ai002",
+      "user_id": 11,
+      "tag_id": 17
+    },
+    {
+      "channel": "pc-hardware",
+      "display_name": "電腦硬體",
+      "username": "ai003",
+      "user_id": 12,
+      "tag_id": 18
+    },
+    {
+      "channel": "medical",
+      "display_name": "醫療與健康",
+      "username": "ai004",
+      "user_id": 13,
+      "tag_id": 46
+    },
+    {
+      "channel": "biz-prod",
+      "display_name": "商業與製造",
+      "username": "ai005",
+      "user_id": 14,
+      "tag_id": 45
+    },
+    {
+      "channel": "education",
+      "display_name": "教育與學習",
+      "username": "ai006",
+      "user_id": 15,
+      "tag_id": 47
+    },
+    {
+      "channel": "frameworks-platforms",
+      "display_name": "框架與平台",
+      "username": "ai007",
+      "user_id": 16,
+      "tag_id": 22
+    },
+    {
+      "channel": "learning-resources",
+      "display_name": "學習資源",
+      "username": "ai008",
+      "user_id": 17,
+      "tag_id": 24
+    },
+    {
+      "channel": "tools",
+      "display_name": "工具分享",
+      "username": "ai009",
+      "user_id": 18,
+      "tag_id": 25
+    }
+  ]
+}

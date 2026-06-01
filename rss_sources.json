@@ -1,0 +1,27 @@
+[
+  {
+    "name": "TechCrunch",
+    "url": "https://techcrunch.com/feed/",
+    "category": "industry"
+  },
+  {
+    "name": "Engadget",
+    "url": "https://www.engadget.com/rss.xml",
+    "category": "pc-hardware"
+  },
+  {
+    "name": "The Verge",
+    "url": "https://www.theverge.com/rss/index.xml",
+    "category": "frameworks-platforms"
+  },
+  {
+    "name": "DPReview",
+    "url": "https://www.dpreview.com/feeds/rss",
+    "category": "photo-gear"
+  },
+  {
+    "name": "HealthIT",
+    "url": "https://www.healthit.gov/news/feed",
+    "category": "medical"
+  }
+]
