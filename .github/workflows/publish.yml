@@ -1,0 +1,42 @@
+name: Flarum Auto Publisher
+
+on:
+  schedule:
+    - cron: '0 4 * * *'   # 台灣中午 12:00
+    - cron: '0 13 * * *'  # 台灣晚上 21:00
+    - cron: '0 17 * * *'  # 台灣凌晨 01:00
+    - cron: '0 23 * * *'  # 台灣早上 07:00
+  workflow_dispatch: # 支持手動點擊執行測試
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: |
+          pip install requests feedparser google-generativeai
+
+      - name: Run Bot
+        env:
+          SERVER_API_URL: ${{ secrets.SERVER_API_URL }}
+          FLARUM_API_KEY: ${{ secrets.FLARUM_API_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          AI_PROVIDER: "gemini" # 或者 "groq"
+        run: python bot.py
+
+      - name: Commit history
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add history.json
+          git commit -m "Update post history [skip ci]" || exit 0
+          git push
