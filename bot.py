@@ -7,7 +7,7 @@ from ai_handler import AIHandler
 
 # 配置資訊
 CONFIG = {
-    "FLARUM_URL": "https://manprompt.qzz.io",
+    "SERVER_API_URL": os.environ.get("SERVER_API_URL"),
     "FLARUM_API_KEY": os.environ.get("FLARUM_API_KEY"),
     "GEMINI_API_KEY": os.environ.get("GEMINI_API_KEY"),
     "GROQ_API_KEY": os.environ.get("GROQ_API_KEY"),
@@ -18,16 +18,25 @@ HISTORY_FILE = "history.json"
 
 def load_json(path):
     if not os.path.exists(path):
-        return {"mappings": []} if "mapping" in path else []
-    with open(path, 'r', encoding='utf-8') as f:
-        return json.load(f)
+        if "mapping" in path:
+            return {"mappings": []}
+        return []
+    try:
+        with open(path, 'r', encoding='utf-8') as f:
+            return json.load(f)
+    except Exception:
+        return []
 
 def save_json(path, data):
     with open(path, 'w', encoding='utf-8') as f:
         json.dump(data, f, indent=2, ensure_ascii=False)
 
 def post_to_flarum(user_id, tag_id, title, content):
-    url = f"{CONFIG['FLARUM_URL']}/api/discussions"
+    if not CONFIG["SERVER_API_URL"]:
+        print("❌ 錯誤: SERVER_API_URL 未設定")
+        return False
+        
+    url = f"{CONFIG['SERVER_API_URL']}/api/discussions"
     headers = {
         "Authorization": f"Token {CONFIG['FLARUM_API_KEY']}; userId={user_id}",
         "Content-Type": "application/json"
@@ -63,14 +72,21 @@ def post_to_flarum(user_id, tag_id, title, content):
         return False
 
 def run_bot():
-    mappings = load_json("mapping.json")["mappings"]
+    mappings = load_json("mapping.json").get("mappings", [])
     rss_sources = load_json("rss_sources.json")
     history = load_json(HISTORY_FILE)
     
+    # 確保 history 是列表
+    if not isinstance(history, list):
+        history = []
+    
     # 初始化 AI
     api_key = CONFIG["GEMINI_API_KEY"] if CONFIG["AI_PROVIDER"] == "gemini" else CONFIG["GROQ_API_KEY"]
+    if not api_key:
+        print(f"❌ 錯誤: 未設定 {CONFIG['AI_PROVIDER'].upper()} API KEY")
+        return
+
     ai = AIHandler(provider=CONFIG["AI_PROVIDER"], api_key=api_key)
-    
     mapping_dict = {m["channel"]: m for m in mappings}
     
     new_history = list(history)
@@ -79,7 +95,7 @@ def run_bot():
         print(f"🔍 正在抓取: {source['name']}")
         feed = feedparser.parse(source['url'])
         
-        # 遍歷最新的 3 條新聞，避免遺漏
+        # 遍歷最新的 3 條新聞
         for entry in feed.entries[:3]:
             url = entry.link
             if url in history:
@@ -96,7 +112,6 @@ def run_bot():
                 if new_content:
                     if post_to_flarum(mapping["user_id"], mapping["tag_id"], entry.title, new_content):
                         new_history.append(url)
-                        # 每次發帖後稍微停頓，避免頻率限制
                         time.sleep(3)
         
         # 只保留最近 200 條歷史記錄
@@ -104,7 +119,7 @@ def run_bot():
         print("-" * 30)
 
 if __name__ == "__main__":
-    if not CONFIG["FLARUM_API_KEY"]:
-        print("❌ 錯誤: 請設定 FLARUM_API_KEY 環境變數")
+    if not CONFIG["FLARUM_API_KEY"] or not CONFIG["SERVER_API_URL"]:
+        print("❌ 錯誤: 請確保環境變數 FLARUM_API_KEY 和 SERVER_API_URL 已正確設定")
     else:
         run_bot()
