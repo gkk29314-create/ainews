@@ -1,31 +1,52 @@
-import google.generativeai as genai
 import requests
-import os
 import json
+import re
+import time
 
 class AIHandler:
     def __init__(self, keys):
         self.keys = keys
-        if keys.get("gemini"):
-            try:
-                genai.configure(api_key=keys["gemini"])
-                # 改用更穩定且免費的 1.5-flash 模型
-                self.gemini_model = genai.GenerativeModel('gemini-1.5-flash')
-            except Exception as e:
-                print(f"Gemini 初始化失敗: {e}")
-                self.gemini_model = None
-        else:
-            self.gemini_model = None
-        
-    def rewrite_content(self, title, content, style_guide="專業正文 + 幽默點評"):
-        prompt = f"""
-        你是一位專業的新聞小編。請根據以下新聞內容進行改寫。
-        要求：標題吸引人、正文專業精煉、結尾有幽默點評。使用 Markdown 格式。
-        
-        原文標題：{title}
-        原文內容：{content}
-        """
-        
+
+    def _safe_json_parse(self, text):
+        """強健的 JSON 解析，處理 Markdown 代碼塊或雜訊"""
+        try:
+            # 移除不可見字元
+            text = re.sub(r'[\x00-\x1F\x7F]', '', text)
+            # 嘗試直接解析
+            return json.loads(text)
+        except:
+            # 嘗試使用正則提取 { ... }
+            match = re.search(r'\{.*\}', text, re.DOTALL)
+            if match:
+                try:
+                    return json.loads(match.group())
+                except:
+                    return None
+        return None
+
+    def build_prompt(self, title, content):
+        return f"""
+你是一位充滿活力、說話接地氣的專業新聞編輯，擅長將生硬的科技資訊轉化為引人入勝的社群貼文。
+
+請根據以下內容進行改寫：
+原文標題：{title}
+原文內容：{content}
+
+要求：
+1. 標題要吸引人（Hook），帶點幽默或前瞻性。
+2. 正文要專業且精煉，使用 Markdown 格式（加粗、列表等）。
+3. 結尾必須有一個「小編點評」環節，語氣要犀利或感性。
+4. 語言風格：使用台灣繁體中文習慣用語（如：螢幕、電腦、數據、軟體）。
+
+請嚴格依照以下 JSON 格式輸出：
+{{
+  "title": "吸引人的標題",
+  "content": "改寫後的正文內容（含小編點評）"
+}}
+"""
+
+    def rewrite_content(self, title, content):
+        prompt = self.build_prompt(title, content)
         providers = ["gemini", "groq", "nvidia"]
         
         for provider in providers:
@@ -33,65 +54,70 @@ class AIHandler:
             if not api_key:
                 continue
                 
-            print(f"🤖 嘗試使用 {provider.upper()}...")
+            print(f"🤖 正在嘗試 {provider.upper()}...")
             result = None
             
-            if provider == "gemini" and self.gemini_model:
-                result = self._call_gemini(prompt)
+            if provider == "gemini":
+                result = self._call_gemini(prompt, api_key)
             elif provider == "groq":
                 result = self._call_groq(prompt, api_key)
             elif provider == "nvidia":
                 result = self._call_nvidia(prompt, api_key)
                 
             if result:
-                return result
-            
-        print("❌ 所有 AI 接口均調用失敗")
+                parsed = self._safe_json_parse(result)
+                if parsed and "title" in parsed and "content" in parsed:
+                    print(f"✅ {provider.upper()} 改寫成功")
+                    return parsed
+                else:
+                    print(f"⚠️ {provider.upper()} 輸出格式錯誤，嘗試下一個...")
+            else:
+                print(f"⚠️ {provider.upper()} 調用失敗...")
+                
         return None
 
-    def _call_gemini(self, prompt):
+    def _call_gemini(self, prompt, api_key):
+        # 使用 REST API 直連，避開 SDK 穩定性問題
+        url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key={api_key}"
+        headers = {"Content-Type": "application/json"}
+        payload = {
+            "contents": [{"parts": [{"text": prompt}]}],
+            "generationConfig": {"temperature": 0.7, "maxOutputTokens": 2048}
+        }
         try:
-            response = self.gemini_model.generate_content(prompt)
-            return response.text
+            response = requests.post(url, headers=headers, json=payload, timeout=30)
+            data = response.json()
+            return data["candidates"][0]["content"]["parts"][0]["text"]
         except Exception as e:
-            print(f"Gemini 錯誤: {e}")
+            print(f"Gemini Error: {e}")
             return None
 
     def _call_groq(self, prompt, api_key):
         url = "https://api.groq.com/openai/v1/chat/completions"
         headers = {"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"}
-        # 使用最新的 Llama 3.1 模型，這是目前 Groq 最穩定的
         data = {
-            "model": "llama-3.1-70b-versatile",
-            "messages": [{"role": "user", "content": prompt}]
+            "model": "llama-3.3-70b-versatile",
+            "messages": [{"role": "user", "content": prompt}],
+            "temperature": 0.7
         }
         try:
             response = requests.post(url, headers=headers, json=data, timeout=30)
-            resp_json = response.json()
-            if 'choices' in resp_json:
-                return resp_json['choices'][0]['message']['content']
-            else:
-                print(f"Groq API 報錯: {resp_json.get('error', {}).get('message', '未知錯誤')}")
-                return None
+            return response.json()['choices'][0]['message']['content']
         except Exception as e:
-            print(f"Groq 請求失敗: {e}")
+            print(f"Groq Error: {e}")
             return None
 
     def _call_nvidia(self, prompt, api_key):
         url = "https://integrate.api.nvidia.com/v1/chat/completions"
         headers = {"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"}
-        # 確保模型名稱完全正確
         data = {
-            "model": "meta/llama-3.1-405b-instruct",
+            "model": "meta/llama-3.1-70b-instruct",
             "messages": [{"role": "user", "content": prompt}],
-            "max_tokens": 1024,
+            "temperature": 0.7
         }
         try:
             response = requests.post(url, headers=headers, json=data, timeout=30)
-            if response.status_code != 200:
-                print(f"NVIDIA API 錯誤狀態碼: {response.status_code}, 內容: {response.text}")
-                return None
             return response.json()['choices'][0]['message']['content']
         except Exception as e:
-            print(f"NVIDIA 請求失敗: {e}")
+            print(f"NVIDIA Error: {e}")
             return None

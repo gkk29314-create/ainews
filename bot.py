@@ -73,11 +73,12 @@ def run_bot():
                 print(f"🤖 處理新聞: {entry.title}")
                 
                 # 自動遞補改寫邏輯
-                new_content = ai.rewrite_content(entry.title, entry.description)
+                ai_result = ai.rewrite_content(entry.title, entry.description)
                 
-                if new_content:
-                    if post_to_flarum(mapping["user_id"], mapping["tag_id"], entry.title, new_content):
-                        print(f"✅ 發帖成功: {entry.title}")
+                if ai_result:
+                    # 使用 AI 優化後的標題和內容
+                    if post_to_flarum(mapping["user_id"], mapping["tag_id"], ai_result["title"], ai_result["content"]):
+                        print(f"✅ 發帖成功: {ai_result['title']}")
                         new_history.append(entry.link)
                         time.sleep(3)
         
