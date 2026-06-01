@@ -34,10 +34,16 @@ def save_json(path, data):
 def post_to_flarum(user_id, tag_id, title, content):
     if not CONFIG["SERVER_API_URL"]: return False
     url = f"{CONFIG['SERVER_API_URL']}/api/discussions"
+    
+    # 修正 Flarum API 的身份代理標頭格式
+    # 標準格式：Token <key>; userId=<id>
     headers = {
         "Authorization": f"Token {CONFIG['FLARUM_API_KEY']}; userId={user_id}",
         "Content-Type": "application/json"
     }
+    
+    print(f"✉️  正在以 UserID: {user_id} 發布到 TagID: {tag_id}...")
+    
     payload = {
         "data": {
             "type": "discussions",
