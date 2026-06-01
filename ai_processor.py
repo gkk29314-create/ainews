@@ -97,7 +97,7 @@ def main():
         news_content = final_result.strip()
         editor_review = "這款新品挺有意思的，大家怎麼看？歡迎留言聊聊！"
 
-    # 4. 打包數據發送至 Serv00
+    # 4. 打包數據發送至遠端伺服器
     # 這裡可以根據新聞標題進行簡單改寫，或者直接使用 AI 輸出的內容
     payload = {
         "title": "AI 推播：" + news_data["title"], 
@@ -109,19 +109,19 @@ def main():
         "source_url": news_data["url"]
     }
     
-    target_url = os.getenv("SERV00_API_URL")
+    target_url = os.getenv("SERVER_API_URL")
     sync_token = os.getenv("SYNC_TOKEN")
     
     if target_url and sync_token:
         headers = {"X-Secure-Token": sync_token, "Content-Type": "application/json"}
         try:
             res = requests.post(target_url, headers=headers, json=payload, timeout=10)
-            print(f"📦 同步至 Serv00 狀態碼: {res.status_code}")
+            print(f"📦 同步至遠端伺服器 狀態碼: {res.status_code}")
             print(f"回傳訊息: {res.text}")
         except Exception as e:
             print(f"❌ 同步失敗: {str(e)}")
     else:
-        print("⚠️ 未設定 SERV00_API_URL 或 SYNC_TOKEN，跳過同步。")
+        print("⚠️ 未設定 SERVER_API_URL 或 SYNC_TOKEN，跳過同步。")
 
 if __name__ == "__main__":
     main()
