@@ -95,8 +95,218 @@
     "category": "tools"
   },
   {
-    "name": "BleepingComputer",
-    "url": "https://www.bleepingcomputer.com/feed/",
-    "category": "frameworks-platforms"
-  }
+      "name": "BleepingComputer",
+      "url": "https://www.bleepingcomputer.com/feed/",
+      "category": "frameworks-platforms"
+  },
+  {
+    "name": "VentureBeat AI",
+    "url": "https://venturebeat.com/category/ai/feed/",
+    "category": "news-trends"
+  },
+  {
+    "name": "AI News",
+    "url": "https://www.artificialintelligence-news.com/feed/",
+    "category": "news-trends"
+  },
+  {
+    "name": "The Decoder",
+    "url": "https://the-decoder.com/feed/",
+    "category": "news-trends"
+  },
+  {
+    "name": "IEEE Spectrum",
+    "url": "https://spectrum.ieee.org/feed",
+    "category": "tech-focus"
+  },
+  {
+    "name": "Wired",
+    "url": "https://www.wired.com/feed/rss",
+    "category": "tech-focus"
+  },
+  {
+    "name": "Semafor Technology",
+    "url": "https://www.semafor.com/feeds/technology.xml",
+    "category": "tech-focus"
+  },
+  {
+    "name": "Future of Life Institute",
+    "url": "https://futureoflife.org/feed/",
+    "category": "future-trends"
+  },
+  {
+    "name": "Singularity Hub",
+    "url": "https://singularityhub.com/feed/",
+    "category": "future-trends"
+  },
+  {
+    "name": "World Economic Forum AI",
+    "url": "https://www.weforum.org/agenda/archive/artificial-intelligence/feed/",
+    "category": "future-trends"
+  },
+  {
+    "name": "AI Ethics Journal",
+    "url": "https://link.springer.com/search.rss?facet-content-type=Article&facet-journal-id=43681",
+    "category": "ethics"
+  },
+  {
+    "name": "Brookings AI",
+    "url": "https://www.brookings.edu/topic/artificial-intelligence/feed/",
+    "category": "ethics"
+  },
+  {
+    "name": "Stability AI Blog",
+    "url": "https://stability.ai/feed",
+    "category": "image-generation"
+  },
+  {
+    "name": "Midjourney Community Feed",
+    "url": "https://www.midjourney.com/updates/rss/",
+    "category": "image-generation"
+  },
+  {
+    "name": "Leonardo AI Blog",
+    "url": "https://leonardo.ai/blog/rss.xml",
+    "category": "image-generation"
+  },
+  {
+    "name": "Runway Blog",
+    "url": "https://runwayml.com/blog/rss.xml",
+    "category": "video-generation"
+  },
+  {
+    "name": "Luma AI Blog",
+    "url": "https://lumalabs.ai/blog/rss.xml",
+    "category": "video-generation"
+  },
+  {
+    "name": "Synthesia Blog",
+    "url": "https://www.synthesia.io/blog/rss.xml",
+    "category": "video-generation"
+  },
+  {
+    "name": "OpenAI Blog",
+    "url": "https://openai.com/news/rss.xml",
+    "category": "text-code"
+  },
+  {
+    "name": "Anthropic News",
+    "url": "https://www.anthropic.com/news/rss.xml",
+    "category": "text-code"
+  },
+  {
+    "name": "Google DeepMind Blog",
+    "url": "https://deepmind.google/blog/rss.xml",
+    "category": "text-code"
+  },
+  {
+    "name": "LangChain Blog",
+    "url": "https://blog.langchain.dev/rss/",
+    "category": "automation"
+  },
+  {
+    "name": "AutoGPT Blog",
+    "url": "https://autogpt.net/feed/",
+    "category": "automation"
+  },
+  {
+    "name": "CrewAI Blog",
+    "url": "https://www.crewai.com/blog/rss.xml",
+    "category": "automation"
+  },
+  {
+    "name": "Tom's Hardware",
+    "url": "https://www.tomshardware.com/feeds/all",
+    "category": "computer-hardware"
+  },
+  {
+    "name": "AnandTech",
+    "url": "https://www.anandtech.com/rss/",
+    "category": "computer-hardware"
+  },
+  {
+    "name": "ServeTheHome",
+    "url": "https://www.servethehome.com/feed/",
+    "category": "computer-hardware"
+  },
+  {
+    "name": "Nature Medicine",
+    "url": "https://www.nature.com/nm.rss",
+    "category": "medical-health"
+  },
+  {
+    "name": "STAT AI",
+    "url": "https://www.statnews.com/feed/",
+    "category": "medical-health"
+  },
+  {
+    "name": "Manufacturing.net",
+    "url": "https://www.manufacturing.net/rss",
+    "category": "business-manufacturing"
+  },
+  {
+    "name": "IndustryWeek",
+    "url": "https://www.industryweek.com/rss.xml",
+    "category": "business-manufacturing"
+  },
+  {
+    "name": "eLearning Industry",
+    "url": "https://elearningindustry.com/feed",
+    "category": "education-learning"
+  },
+  {
+    "name": "EdTech Magazine",
+    "url": "https://edtechmagazine.com/k12/rss.xml",
+    "category": "education-learning"
+  },
+  {
+    "name": "PyTorch Blog",
+    "url": "https://pytorch.org/blog/feed.xml",
+    "category": "framework-platform"
+  },
+  {
+    "name": "TensorFlow Blog",
+    "url": "https://blog.tensorflow.org/feeds/posts/default",
+    "category": "framework-platform"
+  },
+  {
+    "name": "Weights & Biases",
+    "url": "https://wandb.ai/site/rss.xml",
+    "category": "framework-platform"
+  },
+  {
+    "name": "Mistral AI News",
+    "url": "https://mistral.ai/news/rss.xml",
+    "category": "framework-platform"
+  },
+  {
+    "name": "Towards Data Science",
+    "url": "https://towardsdatascience.com/feed",
+    "category": "learning-resources"
+  },
+  {
+    "name": "Machine Learning Mastery",
+    "url": "https://machinelearningmastery.com/blog/feed/",
+    "category": "learning-resources"
+  },
+  {
+    "name": "Sebastian Raschka",
+    "url": "https://sebastianraschka.com/rss.xml",
+    "category": "learning-resources"
+  },
+  {
+    "name": "There's An AI For That",
+    "url": "https://theresanaiforthat.com/rss.xml",
+    "category": "tool-sharing"
+  },
+  {
+    "name": "FutureTools",
+    "url": "https://www.futuretools.io/news/rss.xml",
+    "category": "tool-sharing"
+  },
+  {
+    "name": "AI Tools Directory",
+    "url": "https://aitoolsdirectory.com/feed/",
+    "category": "tool-sharing"
+    }
 ]
