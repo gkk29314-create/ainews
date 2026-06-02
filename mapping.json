@@ -11,8 +11,8 @@
     {
       "channel": "industry",
       "display_name": "產業應用",
-      "username": "ai001, ai004",
-      "user_id": "10, 14",
+      "username": "ai001",
+      "user_id": 10,
       "tag_id": 9
     },
     {
