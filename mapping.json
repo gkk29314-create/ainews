@@ -1,5 +1,4 @@
 {
-  "forum_url": "https://manprompt.qzz.io/",
   "ai_config": {
     "priority": ["nvidia", "gemini", "groq"],
     "models": {
