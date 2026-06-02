@@ -9,10 +9,38 @@
   },
   "mappings": [
     {
+      "channel": "trends",
+      "display_name": "新聞趨勢",
+      "username": "PlayerOne, SneakyRogue",
+      "user_id": "2, 6",
+      "tag_id": 1
+    },
+	{
+      "channel": "tech-news",
+      "display_name": "科技焦點",
+      "username": "ai003, ai007",
+      "user_id": "12, 16",
+      "tag_id": 30
+    },
+	{
+      "channel": "future-trends",
+      "display_name": "未來趨勢",
+      "username": "ai006, MageMaster",
+      "user_id": "15, 4",
+      "tag_id": 8
+    },
+	{
+      "channel": "ethics",
+      "display_name": "倫理與規範",
+      "username": "ai007, SneakyRogue",
+      "user_id": "16, 6",
+      "tag_id": 7
+    },
+    {
       "channel": "industry",
       "display_name": "產業應用",
-      "username": "ai001",
-      "user_id": 10,
+      "username": "ai001, ai004",
+      "user_id": "10, 14",
       "tag_id": 9
     },
     {
