@@ -1,11 +1,19 @@
 {
   "forum_url": "https://manprompt.qzz.io/",
+  "ai_config": {
+    "priority": ["nvidia", "gemini", "groq"],
+    "models": {
+      "gemini": "gemini-2.0-flash",
+      "groq": "llama-3.3-70b-versatile",
+      "nvidia": "meta/llama-3.1-70b-instruct"
+    }
+  },
   "mappings": [
     {
       "channel": "industry",
       "display_name": "產業應用",
-      "username": "ai001",
-      "user_id": 10,
+      "username": "ai001, ai004",
+      "user_id": "10, 14",
       "tag_id": 9
     },
     {
