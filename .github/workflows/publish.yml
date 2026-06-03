@@ -2,10 +2,10 @@ name: Flarum Auto Publisher
 
 on:
   schedule:
-    - cron: '0 4 * * *'   # 台灣中午 12:00
-    - cron: '0 13 * * *'  # 台灣晚上 21:00
-    - cron: '0 17 * * *'  # 台灣凌晨 01:00
-    - cron: '0 23 * * *'  # 台灣早上 07:00
+    - cron: '2 4 * * *'   # 台灣中午 12:00
+    - cron: '4 11 * * *'  # 台灣晚上 19:00
+    - cron: '3 17 * * *'  # 台灣凌晨 01:00
+    - cron: '1 23 * * *'  # 台灣早上 07:00
   workflow_dispatch: # 支持手動點擊執行測試
 
 jobs:
