@@ -7,10 +7,13 @@ class AIHandler:
     def __init__(self, keys, config=None):
         self.keys = keys
         # 預設配置
+# 修改後的設定：將 Gemini 調整為最省額度的 1.5 版本，或微調優先順序
         self.config = config or {
+            # 提示：如果 Gemini 一直爆額度，可以考慮把 "nvidia" 或 "groq" 移到最前面當第一順位
             "priority": ["nvidia", "gemini", "groq"],
             "models": {
-                "gemini": "gemini-2.0-flash",
+                # 建議從 gemini-2.0-flash 改為 gemini-1.5-flash，能有效緩解免費版限制
+                "gemini": "gemini-1.5-flash",
                 "groq": "llama-3.3-70b-versatile",
                 "nvidia": "meta/llama-3.1-70b-instruct"
             }
