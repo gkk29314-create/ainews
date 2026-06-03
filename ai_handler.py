@@ -108,6 +108,37 @@ class AIHandler:
                 
         return None
 
+    def _safe_json_parse(self, text):
+        """
+        嘗試解析 JSON，處理 Markdown 代碼塊和多餘文字
+        """
+        if not text:
+            return None
+            
+        # 1. 嘗試直接解析
+        try:
+            return json.loads(text)
+        except json.JSONDecodeError:
+            pass
+            
+        # 2. 嘗試提取 ```json ... ``` 中的內容
+        json_match = re.search(r"```json\s*(.*?)\s*```", text, re.DOTALL)
+        if json_match:
+            try:
+                return json.loads(json_match.group(1))
+            except json.JSONDecodeError:
+                pass
+                
+        # 3. 嘗試提取第一個 { 和最後一個 } 之間的內容
+        brace_match = re.search(r"({.*})", text, re.DOTALL)
+        if brace_match:
+            try:
+                return json.loads(brace_match.group(1))
+            except json.JSONDecodeError:
+                pass
+                
+        return None
+
     def _call_gemini(self, prompt, api_key, model=None):
         model = model or "gemini-2.0-flash"
         url = f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent?key={api_key}"

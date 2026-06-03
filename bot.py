@@ -52,6 +52,35 @@ def save_json(path, data):
     with open(path, 'w', encoding='utf-8') as f:
         json.dump(data, f, indent=2, ensure_ascii=False)
 
+def clean_html(html):
+    """移除 HTML 標籤並清理多餘空白"""
+    if not html: return ""
+    import re
+    # 移除 script 和 style
+    clean = re.sub(r'<(script|style).*?>.*?</\1>', '', html, flags=re.DOTALL | re.IGNORECASE)
+    # 移除所有標籤
+    clean = re.sub(r'<.*?>', '', clean)
+    # 處理常見實體
+    clean = clean.replace('&nbsp;', ' ').replace('&amp;', '&').replace('&lt;', '<').replace('&gt;', '>')
+    # 移除多餘空白
+    clean = re.sub(r'\s+', ' ', clean).strip()
+    return clean
+
+def fetch_article_content(url):
+    """當 RSS 沒內容時，直接抓取網頁內容"""
+    try:
+        headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'}
+        response = requests.get(url, headers=headers, timeout=15)
+        if response.status_code == 200:
+            # 簡單處理：抓取 <body> 內容
+            import re
+            body_match = re.search(r'<body.*?>(.*?)</body>', response.text, re.DOTALL | re.IGNORECASE)
+            content = body_match.group(1) if body_match else response.text
+            return clean_html(content)
+    except Exception as e:
+        print(f"⚠️ 無法抓取網頁內容: {e}")
+    return ""
+
 def post_to_flarum(user_ids, tag_id, title, content):
     if not CONFIG["SERVER_API_URL"]: 
         print("❌ 錯誤: SERVER_API_URL 未設定")
@@ -141,6 +170,16 @@ def run_bot():
                         content = entry.summary
                     elif hasattr(entry, "content") and entry.content:
                         content = entry.content[0].get("value", "")
+
+                    # 清理內容
+                    content = clean_html(content)
+
+                    # 如果內容太短或沒有，嘗試抓取網頁
+                    if len(content) < 100 and link:
+                        print(f"⚠️ RSS 內容不足，嘗試抓取網頁: {link}")
+                        fetched_content = fetch_article_content(link)
+                        if fetched_content:
+                            content = fetched_content
 
                     if not content:
                         print("⚠️ 找不到文章內容，跳過")
