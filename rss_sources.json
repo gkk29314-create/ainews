@@ -1,5 +1,10 @@
 [
   {
+    "name": "Google Alerts - AI News",
+    "url": "https://www.google.com/alerts/feeds/03998509435199435821/17885894832116094222",
+    "category": "news-trends"
+  },
+  {
     "name": "TechCrunch",
     "url": "https://techcrunch.com/feed/",
     "category": "industry"

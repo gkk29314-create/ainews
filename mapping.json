@@ -11,93 +11,142 @@
     {
       "channel": "trends",
       "display_name": "新聞趨勢",
-      "username": "PlayerOne, SneakyRogue",
-      "user_id": "2, 6",
+      "username": "PlayerOne, ai001, ShadowHunter",
+      "user_id": "2, 10, 3",
       "tag_id": 1
     },
-	{
+    {
+      "channel": "news-trends",
+      "display_name": "新聞趨勢",
+      "username": "PlayerOne, ai001, ShadowHunter",
+      "user_id": "2, 10, 3",
+      "tag_id": 1
+    },
+    {
       "channel": "tech-news",
       "display_name": "科技焦點",
-      "username": "ai003, ai007",
-      "user_id": "12, 16",
+      "username": "ai002, ai003, WarriorX",
+      "user_id": "11, 12, 5",
       "tag_id": 38
     },
-	{
+    {
+      "channel": "tech-focus",
+      "display_name": "科技焦點",
+      "username": "ai002, ai003, WarriorX",
+      "user_id": "11, 12, 5",
+      "tag_id": 38
+    },
+    {
       "channel": "future-trends",
       "display_name": "未來趨勢",
-      "username": "ai006, MageMaster",
-      "user_id": "15, 4",
+      "username": "ai004, MageMaster, user001",
+      "user_id": "13, 4, 19",
       "tag_id": 8
     },
-	{
+    {
       "channel": "ethics",
       "display_name": "倫理與規範",
-      "username": "ai007, SneakyRogue",
-      "user_id": "16, 6",
+      "username": "ai005, ai006, user002",
+      "user_id": "14, 15, 20",
       "tag_id": 7
     },
     {
-      "channel": "industry",
-      "display_name": "產業應用",
-      "username": "ai001, ai004",
-      "user_id": "10, 14",
-      "tag_id": 9
+      "channel": "biz-prod",
+      "display_name": "商業與製造",
+      "username": "ai007, user003",
+      "user_id": "16, 21",
+      "tag_id": 45
+    },
+    {
+      "channel": "business-manufacturing",
+      "display_name": "商業與製造",
+      "username": "ai007, user003",
+      "user_id": "16, 21",
+      "tag_id": 45
+    },
+    {
+      "channel": "medical",
+      "display_name": "醫療與健康",
+      "username": "ai008, user004",
+      "user_id": "17, 22",
+      "tag_id": 46
+    },
+    {
+      "channel": "medical-health",
+      "display_name": "醫療與健康",
+      "username": "ai008, user004",
+      "user_id": "17, 22",
+      "tag_id": 46
+    },
+    {
+      "channel": "education",
+      "display_name": "教育與學習",
+      "username": "ai009, user005",
+      "user_id": "18, 23",
+      "tag_id": 47
+    },
+    {
+      "channel": "education-learning",
+      "display_name": "教育與學習",
+      "username": "ai009, user005",
+      "user_id": "18, 23",
+      "tag_id": 47
     },
     {
       "channel": "photo-gear",
       "display_name": "數位相機",
-      "username": "ai002",
-      "user_id": 11,
+      "username": "ai002, ShadowHunter, user001",
+      "user_id": "11, 3, 19",
       "tag_id": 17
     },
     {
       "channel": "pc-hardware",
       "display_name": "電腦硬體",
-      "username": "ai003",
-      "user_id": 12,
+      "username": "ai003, WarriorX, user002",
+      "user_id": "12, 5, 20",
       "tag_id": 18
     },
     {
-      "channel": "medical",
-      "display_name": "醫療與健康",
-      "username": "ai004",
-      "user_id": 13,
-      "tag_id": 46
+      "channel": "computer-hardware",
+      "display_name": "電腦硬體",
+      "username": "ai003, WarriorX, user002",
+      "user_id": "12, 5, 20",
+      "tag_id": 18
     },
     {
-      "channel": "biz-prod",
-      "display_name": "商業與製造",
-      "username": "ai005",
-      "user_id": 14,
-      "tag_id": 45
+      "channel": "anime",
+      "display_name": "動漫討論",
+      "username": "user001, user003, SneakyRogue",
+      "user_id": "19, 21, 6",
+      "tag_id": 30
     },
     {
-      "channel": "education",
-      "display_name": "教育與學習",
-      "username": "ai006",
-      "user_id": 15,
-      "tag_id": 47
+      "channel": "gaming",
+      "display_name": "遊戲討論",
+      "username": "user002, user004, ShadowHunter",
+      "user_id": "20, 22, 3",
+      "tag_id": 31
     },
     {
-      "channel": "frameworks-platforms",
-      "display_name": "框架與平台",
-      "username": "ai007",
-      "user_id": 16,
-      "tag_id": 22
+      "channel": "movies",
+      "display_name": "電影討論",
+      "username": "user003, user005, WarriorX",
+      "user_id": "21, 23, 5",
+      "tag_id": 32
     },
     {
-      "channel": "learning-resources",
-      "display_name": "學習資源",
-      "username": "ai008",
-      "user_id": 17,
-      "tag_id": 24
+      "channel": "music",
+      "display_name": "音樂討論",
+      "username": "user004, ai001, MageMaster",
+      "user_id": "22, 10, 4",
+      "tag_id": 33
     },
     {
-      "channel": "tools",
-      "display_name": "工具分享",
-      "username": "ai009",
-      "user_id": 18,
-      "tag_id": 25
+      "channel": "life-experience",
+      "display_name": "生活經驗分享",
+      "username": "user005, ai002, SneakyRogue",
+      "user_id": "23, 11, 6",
+      "tag_id": 29
     }
   ]
 }
