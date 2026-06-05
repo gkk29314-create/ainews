@@ -53,7 +53,7 @@ TAG_RELATIONS = {
     "29": "5",  # 生活經驗分享
     "30": "5",  # 動漫討論
     "31": "5",  # 遊戲討論
-    "32": "5",  # 電影討論
+    "32": "5",  # 影視討論
     "33": "5",  # 音樂討論
     
     # 父標籤 26: 公告規範
@@ -102,9 +102,11 @@ def post_to_flarum(user_ids, tag_id, title, content):
         
     target_user_id = random.choice(ids)
     
-    tags_data = [{"type": "tags", "id": str(tag_id)}]
+    tags_data = []
     if str(tag_id) in TAG_RELATIONS:
+        # Flarum 通常要求父標籤（Primary Tag）排在前面
         tags_data.append({"type": "tags", "id": TAG_RELATIONS[str(tag_id)]})
+    tags_data.append({"type": "tags", "id": str(tag_id)})
     
     headers = {
         "Authorization": f"Token {CONFIG['FLARUM_API_KEY']};userId={target_user_id}",

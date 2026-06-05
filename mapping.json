@@ -129,7 +129,7 @@
     },
     {
       "channel": "movies",
-      "display_name": "影視討論",
+      "display_name": "電影討論",
       "username": "user003, user005, WarriorX",
       "user_id": "21, 23, 5",
       "tag_id": 32
@@ -147,6 +147,76 @@
       "username": "user005, ai002, SneakyRogue",
       "user_id": "23, 11, 6",
       "tag_id": 29
+    },
+    {
+      "channel": "frameworks-platforms",
+      "display_name": "框架與平台",
+      "username": "ai001, ai002",
+      "user_id": "10, 11",
+      "tag_id": 22
+    },
+    {
+      "channel": "framework-platform",
+      "display_name": "框架與平台",
+      "username": "ai001, ai002",
+      "user_id": "10, 11",
+      "tag_id": 22
+    },
+    {
+      "channel": "learning-resources",
+      "display_name": "學習資源",
+      "username": "ai003, ai004",
+      "user_id": "12, 13",
+      "tag_id": 24
+    },
+    {
+      "channel": "tool-sharing",
+      "display_name": "工具分享",
+      "username": "ai005, ai006",
+      "user_id": "14, 15",
+      "tag_id": 25
+    },
+    {
+      "channel": "tools",
+      "display_name": "工具分享",
+      "username": "ai005, ai006",
+      "user_id": "14, 15",
+      "tag_id": 25
+    },
+    {
+      "channel": "industry",
+      "display_name": "產業應用",
+      "username": "ai001, ai002",
+      "user_id": "10, 11",
+      "tag_id": 9
+    },
+    {
+      "channel": "image-generation",
+      "display_name": "圖像生成",
+      "username": "ai003, ai004",
+      "user_id": "12, 13",
+      "tag_id": 10
+    },
+    {
+      "channel": "video-generation",
+      "display_name": "影音生成",
+      "username": "ai005, ai006",
+      "user_id": "14, 15",
+      "tag_id": 11
+    },
+    {
+      "channel": "text-code",
+      "display_name": "文本與程式",
+      "username": "ai007, ai008",
+      "user_id": "16, 17",
+      "tag_id": 13
+    },
+    {
+      "channel": "automation",
+      "display_name": "智能體與自動化",
+      "username": "ai009, PlayerOne",
+      "user_id": "18, 2",
+      "tag_id": 14
     }
   ]
 }
